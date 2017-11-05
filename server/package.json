@@ -9,6 +9,7 @@
   "author": "spas belev",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "node-dht-sensor": "0.0.32"
   }
 }
