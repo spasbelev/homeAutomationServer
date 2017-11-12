@@ -1,4 +1,5 @@
 const getSensorReadings = require('./read_dht22_sensor')
+const databaseOperation = require('./database-operations')
 
 const cache = 
 	{
@@ -11,6 +12,8 @@ setInterval(() => {
 		if(err){
 			return console.error(err)
 		}
+		databaseOperations.insertReading('temperature', temperature)
+		databaseOperations.insertReading('humidity', humidity)
 		cache.temperature = temperature
 		cache.humidity = humidity
 	})
