@@ -24,6 +24,60 @@ app.get('/humidity/history', function(req, res) {
 	})
 })
 
+app.get('/temperature/range', function(req, res) {
+	const {start, end} = req.query
+	databaseOperations.fetchReadingsBetweenTime('temperature', 
+	start, end, (err, results) => {
+		if(err) {
+			console.error(err)
+			return res.status(500).end()
+		}
+		res.json(results)
+	})
+})
+
+app.get('/temperature/average', function(req, res) {
+	const {start, end} = req.query
+	databaseOperations.fetchReadingsBetweenTime('temperature', 
+	start, end, (err, results) => {
+		if(err) {
+			console.error(err)
+			return res.status(500).end()
+		}
+		res.json({
+			value: results['avg(value'].toFixed(1)
+		})
+	})
+})
+
+app.get('/humidity/range', function(req, res) {
+	const {start, end} = req.query
+	databaseOperations.fetchReadingsBetweenTime('humidity', 
+	start, end, (err, results) => {
+		if(err) {
+			console.error(err)
+			return res.status(500).end()
+		}
+		res.json(results)
+	})
+})
+
+
+
+app.get('/humidity/average', function(req, res) {
+	const {start, end} = req.query
+	databaseOperations.fetchReadingsBetweenTime('humidity', 
+	start, end, (err, results) => {
+		if(err) {
+			console.error(err)
+			return res.status(500).end()
+		}
+		res.json({
+			value: results['avg(value'].toFixed(1)
+		})
+	})
+})
+
 app.use('/public', express.static(path.join(__dirname, 'public')))
 
 app.get('/temperature', function(req, res) {
