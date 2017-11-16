@@ -225,7 +225,40 @@ if(!getParameterByName('start') && !getParameterByName('end')) {
 	fetchTemperatureRange()
 }
 
-setInterval(() => {
-	fetchTemperature()
-	fetchHumidity()
-}, 2000)
+const addSocketListeners = () => {
+	const socket = io()
+
+	socket.on('new-temperature', data => {
+		const now = new Date()
+		const timenow = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds()
+		pushData(temperatureChartConfig.data.labels, timeNow, 10)
+		pushData(temperatureChartConfig.data.datasets[0].data, data.value, 10)
+
+		temperatureChart.update()
+		temperatureDisplay.innderHTML = '<strong>' + data.value + '</strong>'
+	})
+
+	socket.on('new-humidity', data => {
+		const now = new Date()
+		const timeNow = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds()
+		pushData(humidityChartConfig.data.labels, timeNow, 10)
+		pushData(humidityChartConfig.data.datasets[0].data, data.value, 10)
+
+		humidityChart.update()
+		humidityDisplay.innerHTML = '<strong>' + data.value + '</strong>'
+	})
+}
+
+if(!getParameterByName('start') && !getParameterByName('end')) {
+	addSocketListeners()
+
+	fetchHumidityHistory()
+	fetchTemperatureHistory()
+} else {
+	fetchHumidityRange()
+	fetchTemperatureRange()
+}
+//setInterval(() => {
+//	fetchTemperature()
+//	fetchHumidity()
+//}, 2000)
