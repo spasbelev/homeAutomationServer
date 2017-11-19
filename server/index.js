@@ -5,7 +5,7 @@ const getCachedSensorReadings = require('./cache_sensor_data')
 const databaseOperations = require('./database-operations')
 const http = require('http')
 const socketIo = require('socket.io')
-const [subscribe, unsubscribe] = require('./notifier')
+const {subscribe, unsubscribe} = require('./notifier')
 
 const httpServer = http.Server(app)
 
@@ -13,7 +13,7 @@ const io = socketIo(httpServer)
 
 io.on('connection', socket => {
 	console.log("User connected [${socket.id}]")
-})
+
 
 
 const pushTemperature = newTemperature => {
@@ -35,12 +35,12 @@ socket.on('disconnect', () => {
 	unsubscribe(pushTemperature, 'temperature')
 	unsubscribe(pushHumidity, 'humidity')
 	})
-
+})
 httpServer.listen(3000, function () {
 	console.log('Server listening on port 3000')
 })
 
-
+/*
 app.get('/temperature/history',function(req, res) {
 	databaseOperations.fetchLatestReading('temperature', 10, (err, result) => {
 if(err) {
@@ -134,5 +134,4 @@ app.get('/humidity', function(req, res) {
 app.listen(3000, function(){
 	console.log('Server listening on port 3000');
 })
-
-
+*/

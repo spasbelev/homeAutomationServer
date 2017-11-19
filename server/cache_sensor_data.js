@@ -2,7 +2,7 @@ const getSensorReadings = require('./read_dht22_sensor')
 const databaseOperation = require('./database-operations')
 
 
-const {notifier} = require('./notifier')
+const {notify} = require('./notifier')
 
 const cache = 
 	{
@@ -15,10 +15,10 @@ setInterval(() => {
 		if(err){
 			return console.error(err)
 		}
-		databaseOperations.insertReading('temperature', temperature)
-		databaseOperations.insertReading('humidity', humidity)
+		databaseOperation.insertReading('temperature', temperature)
+		databaseOperation.insertReading('humidity', humidity)
 
-		if(cahce.temperature != temperature) {
+		if(cache.temperature != temperature) {
 			notify(temperature, 'temperature')
 		}
 		if(cache.humidity != humidity) {
@@ -30,5 +30,4 @@ setInterval(() => {
 }, 2000)
 
 module.exports.getTemperature = () => cache.temperature
-module.exports.getHumidity = () => cache.humid
-ity
+module.exports.getHumidity = () => cache.humidity

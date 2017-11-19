@@ -1,7 +1,7 @@
 const sensor = require('node-dht-sensor')
 
 const getSensorReadings = (callback) => {
-	sensor.read(22, 4, function (err, temperature, humidity){
+	sensor.read(22, 21, function (err, temperature, humidity){
 		if(err){
 			return callback(err)
 		}

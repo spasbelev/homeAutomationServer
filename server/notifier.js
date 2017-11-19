@@ -16,7 +16,7 @@ const subscribe = (listener, type) => {
 /* Arguments: callback function, type
  * Brief: Provides a way to unsubscribe(remove) a listener from 
  * the subscribed array */
-const unsubscribe = (listenerToBeRemoved, type) => {}
+const unsubscribe = (listenerToBeRemoved, type) => {
 	listeners[type] = listeners[type].filter(listener =>
 		listener != listenerToBeRemoved)
 }
@@ -28,5 +28,5 @@ const notify = (value, type) => {
 }
 
 module.exports = {
-	subscribe, unsubsribe, notify
+	subscribe, unsubscribe, notify
 }
