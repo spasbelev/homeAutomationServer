@@ -13,16 +13,16 @@ const io = socketIo(httpServer)
 
 io.on('connection', socket => {
 	console.log("User connected [${socket.id}]")
-)
+})
 
 
-const pushTemperature = new Temperature => {
+const pushTemperature = newTemperature => {
 	socket.emit('new-temperature', {
 		value: newTemperature
 	})
 }
 
-const pushHumidity = new Humidity => {
+const pushHumidity = newHumidity => {
 	socket.emit('new-humidity', {
 		value: newHumidity
 	})
@@ -38,14 +38,14 @@ socket.on('disconnect', () => {
 
 httpServer.listen(3000, function () {
 	console.log('Server listening on port 3000')
-)
+})
 
 
 app.get('/temperature/history',function(req, res) {
 	databaseOperations.fetchLatestReading('temperature', 10, (err, result) => {
 if(err) {
 	console.error(err)
-	return res.status(500).end()	
+	return res.status(500).end()
 }
 	res.json(result.reverse())
 	})
@@ -63,7 +63,7 @@ app.get('/humidity/history', function(req, res) {
 
 app.get('/temperature/range', function(req, res) {
 	const {start, end} = req.query
-	databaseOperations.fetchReadingsBetweenTime('temperature', 
+	databaseOperations.fetchReadingsBetweenTime('temperature',
 	start, end, (err, results) => {
 		if(err) {
 			console.error(err)
@@ -75,7 +75,7 @@ app.get('/temperature/range', function(req, res) {
 
 app.get('/temperature/average', function(req, res) {
 	const {start, end} = req.query
-	databaseOperations.fetchReadingsBetweenTime('temperature', 
+	databaseOperations.fetchReadingsBetweenTime('temperature',
 	start, end, (err, results) => {
 		if(err) {
 			console.error(err)
@@ -89,7 +89,7 @@ app.get('/temperature/average', function(req, res) {
 
 app.get('/humidity/range', function(req, res) {
 	const {start, end} = req.query
-	databaseOperations.fetchReadingsBetweenTime('humidity', 
+	databaseOperations.fetchReadingsBetweenTime('humidity',
 	start, end, (err, results) => {
 		if(err) {
 			console.error(err)
@@ -103,7 +103,7 @@ app.get('/humidity/range', function(req, res) {
 
 app.get('/humidity/average', function(req, res) {
 	const {start, end} = req.query
-	databaseOperations.fetchReadingsBetweenTime('humidity', 
+	databaseOperations.fetchReadingsBetweenTime('humidity',
 	start, end, (err, results) => {
 		if(err) {
 			console.error(err)
