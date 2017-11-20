@@ -40,6 +40,9 @@ httpServer.listen(3000, function () {
 	console.log('Server listening on port 3000')
 })
 
+app.use('/public', express.static(path.join(__dirname, 'public')))
+
+app.use('/public/mainScreen', express.static(path.join(__dirname, 'public/mainScreen')))
 /*
 app.get('/temperature/history',function(req, res) {
 	databaseOperations.fetchLatestReading('temperature', 10, (err, result) => {

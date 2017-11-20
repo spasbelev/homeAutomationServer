@@ -258,7 +258,3 @@ if(!getParameterByName('start') && !getParameterByName('end')) {
 	fetchHumidityRange()
 	fetchTemperatureRange()
 }
-//setInterval(() => {
-//	fetchTemperature()
-//	fetchHumidity()
-//}, 2000)
