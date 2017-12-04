@@ -1,6 +1,11 @@
 var attempt = 3; // Variable to count number of attempts.
 // Below function Executes on click of login button.
-function validateLogin() {
+
+/*global document require*/
+
+var isLoginSuccess = false;
+
+function validateLogin(username, password) {
     var username = document.getElementById("userName").value;
     var password = document.getElementById("userPass").value;
 
@@ -8,6 +13,7 @@ function validateLogin() {
     if ( username == "username" && password == "password") {
         alert ("Login successfully");
         console.log("Success");
+        isLoginSuccess = true;
         return true;
     }
     else { 
@@ -15,7 +21,7 @@ function validateLogin() {
         alert("You have left "+attempt+" attempts left");
         // Disabling fields after 3 attempts.
         checkIfLastAttempt();
-        window.location.href = "index.html";
+       // window.location.href = "index.html";
     }   
 }
 
@@ -28,6 +34,10 @@ function checkIfLastAttempt() {
     }
 }
 
+function wasLoginSuccessful() {
+    return isLoginSuccess
+}
+
 module.exports = {
-    validateLogin
+    wasLoginSuccessful
 }
