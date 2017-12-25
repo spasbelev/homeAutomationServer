@@ -53,6 +53,7 @@ app.get("/", function(req, res) {
 	}
 })
 
+
 app.use('/login', express.static(path.join(__dirname, 'login')))
 
 app.use("/public/mainScreen", express.static(path.join(__dirname, 'public/mainScreen')));
@@ -60,10 +61,15 @@ app.use("/public/mainScreen", express.static(path.join(__dirname, 'public/mainSc
 app.get("/public/mainScreen/", function(req, res) {
 	res.sendFile( __dirname + "/public/" + "mainScreen/" + "mainPage.html" );
 })
+
 app.post('/login', function(req, res, next) {
 	if(loginValidate.wasLoginSuccessful()) {
 		res.redirect("/login")
 	} else {
 		res.redirect("./public/mainScreen/");
 	}
+})
+
+app.use(function(req, res){
+	res.status(404).send("Page not found");
 })

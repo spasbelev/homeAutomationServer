@@ -1,6 +1,3 @@
-
-
-
 const temperatureChartConfig = {
 	type: 'line',
 	data: {
