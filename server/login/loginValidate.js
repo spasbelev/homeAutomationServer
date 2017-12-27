@@ -6,8 +6,6 @@ var attempt = 3; // Variable to count number of attempts.
 var isLoginSuccess = false;
 
 function validateLogin(username, password) {
-    var username = document.getElementById("userName").value;
-    var password = document.getElementById("userPass").value;
 
     // Idea is that on first startup the username and password will be generated and will be read from a file that is hidden.
     if ( username == "username" && password == "password") {

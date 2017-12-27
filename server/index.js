@@ -6,9 +6,9 @@ const getCachedSensorReadings = require('./cache_sensor_data');
 const databaseOperations = require('./database-operations');
 const https = require('https');
 const socketIo = require('socket.io');
-const {subscribe, unsubscribe} = require('./notifier');
+// const {subscribe, unsubscribe} = require('./notifier');
 const loginValidate = require("./login/loginValidate");
-
+var port = process.env.PORT || 5000;
 if (process.env.NODE_ENV !== 'production') {
     var selfSigned = require('openssl-self-signed-certificate');
  
@@ -17,22 +17,18 @@ if (process.env.NODE_ENV !== 'production') {
         cert: selfSigned.cert
     };
  
-    var httpsServer = https.createServer(options, app).listen(3000);
-    console.log(`HTTPS started on port ${3000} (dev only).`);
+    var httpsServer = https.createServer(options, app).listen(port);
+    console.log(`HTTPS started on port ${port} (dev only).`);
 }
 var bodyParser = require('body-parser');
 var fs = require('fs');
 
 
 // Redirect to https for Heroku deployment
-function requireHTTPS(req, res, next) {
-	// The 'x-forwarded-proto' check is for Heroku
-	if (!req.secure && req.get('x-forwarded-proto') !== 'https' && process.env.NODE_ENV !== "development") {
-	  return res.redirect('https://' + req.get('host') + req.url);
-	}
-	next();
-  }
+
 const io = socketIo(httpsServer);
+
+io.connect('https://pacific-lowlands-29553.herokuapp.com', { autoConnect: true});
 
 app.use(requireHTTPS);
 
@@ -63,7 +59,14 @@ socket.on('disconnect', () => {
 	})
 })
 
-
+socket.on('LoginCredentials', function(username, password) {
+	if(validateLogin(username, password)) {
+		socket.emit('LoginSuccess');
+	}
+	else {
+		socket.emit('LoginFail')
+	}
+})
 
 app.get("/", function(req, res) {
 	if(!loginValidate.wasLoginSuccessful()) {
