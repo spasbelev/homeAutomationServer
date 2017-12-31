@@ -17,7 +17,7 @@ if (process.env.NODE_ENV !== 'production') {
         cert: selfSigned.cert
     };
  
-    var httpsServer = http.createServer(app).listen(port);
+    var httpsServer = https.createServer(app).listen(port);
     console.log(`HTTPS started on port ${port} (dev only).`);
 }
 var bodyParser = require('body-parser');
