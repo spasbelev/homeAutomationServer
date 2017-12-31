@@ -15,8 +15,6 @@ setInterval(() => {
 		if(err){
 			return console.error(err)
 		}
-		console.log(temperature);
-		console.log(humidity);
 		databaseOperation.insertReading('temperature', temperature)
 		databaseOperation.insertReading('humidity', humidity)
 
