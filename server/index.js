@@ -39,6 +39,7 @@ io.on('connection', socket => {
 
 
 const pushTemperature = newTemperature => {
+	console.log(newTemperature);
 	socket.emit('new-temperature', {
 		value: newTemperature
 	})
