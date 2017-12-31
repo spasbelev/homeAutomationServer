@@ -30,7 +30,7 @@ const io = socketIo(httpsServer);
 
 // io.connect('https://pacific-lowlands-29553.herokuapp.com', { autoConnect: true});
 io.listen(httpsServer);
-app.use(requireHTTPS);
+// app.use(requireHTTPS);
 
 app.use(bodyParser.json());
 
