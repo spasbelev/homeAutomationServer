@@ -8,7 +8,7 @@ const https = require('https');
 const socketIo = require('socket.io');
 // const {subscribe, unsubscribe} = require('./notifier');
 const loginValidate = require("./login/loginValidate");
-var port = process.env.PORT || 5000;
+var port = 3000;
 if (process.env.NODE_ENV !== 'production') {
     var selfSigned = require('openssl-self-signed-certificate');
  
@@ -28,8 +28,8 @@ var fs = require('fs');
 
 const io = socketIo(httpsServer);
 
-io.connect('https://pacific-lowlands-29553.herokuapp.com', { autoConnect: true});
-
+// io.connect('https://pacific-lowlands-29553.herokuapp.com', { autoConnect: true});
+io.listen(httpsServer);
 app.use(requireHTTPS);
 
 app.use(bodyParser.json());
