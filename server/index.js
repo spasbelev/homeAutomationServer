@@ -60,6 +60,7 @@ io.on('disconnect', () => {
 })
 
 io.on('LoginCredentials', function(username, password) {
+	console.log("here");
 	if(validateLogin(username, password)) {
 		socket.emit('LoginSuccess');
 	}
