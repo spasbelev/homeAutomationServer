@@ -53,13 +53,13 @@ const pushHumidity = newHumidity => {
 subscribe(pushTemperature, 'temperature')
 subscribe(pushHumidity, 'humidity')
 
-socket.on('disconnect', () => {
+socketIo.on('disconnect', () => {
 	unsubscribe(pushTemperature, 'temperature')
 	unsubscribe(pushHumidity, 'humidity')
 	})
 })
 
-socket.on('LoginCredentials', function(username, password) {
+socketIo.on('LoginCredentials', function(username, password) {
 	if(validateLogin(username, password)) {
 		socket.emit('LoginSuccess');
 	}
