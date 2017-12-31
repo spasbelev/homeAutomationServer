@@ -4,7 +4,7 @@ const app = express();
 
 const getCachedSensorReadings = require('./cache_sensor_data');
 const databaseOperations = require('./database-operations');
-const https = require('https');
+const https = require('http');
 const socketIo = require('socket.io');
 // const {subscribe, unsubscribe} = require('./notifier');
 const loginValidate = require("./login/loginValidate");
